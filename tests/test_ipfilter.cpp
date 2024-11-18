@@ -29,6 +29,29 @@ TEST(IpFilter, SimpleLines) {
 	EXPECT_EQ("1.2.3.4", s);
 }
 
+TEST(IpFilter, SimpleLines2)
+{
+	Filter filter;
+	stringstream ss;
+	ss << "1.1.1.1" << endl;
+	ss << "1.2.1.1" << endl;
+	ss << "1.10.1.1" << endl;
+
+	filter.doInput(ss);
+	filter.doSort();
+
+	stringstream os;
+	filter.doFullOutput(os);
+
+	std::string s;
+	os >> s;
+	EXPECT_EQ("1.10.1.1", s);
+	os >> s;
+	EXPECT_EQ("1.2.1.1", s);
+	os >> s;
+	EXPECT_EQ("1.1.1.1", s);
+}
+
 TEST(IpFilter, LinesWithComments) {
 	Filter filter;
 	stringstream ss;
@@ -66,7 +89,7 @@ TEST(IpFilter, SimpleFilter) {
 	filter.doSort();
 
 	stringstream os;
-	filter.doFilteredOutput(os, [](const Ip& ip) { return ip.bytes.b4 == 4; });
+	filter.doFilteredOutput(os, [](const Ip& ip) { return ip.bytes[3] == 4; });
 
 	std::string s;
 	os >> s;

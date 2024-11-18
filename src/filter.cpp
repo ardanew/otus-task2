@@ -12,16 +12,23 @@ void Filter::doInput(std::istream &is)
 		getline(is, line);
 		if (line.empty())
 			break;
-		Ip ip{ line };
-		data.push_back(std::move(ip));
+		data.emplace_back(line);
 	}
 	m_data.swap(data);
 }
 
 void Filter::doSort()
 {
-	sort(m_data.begin(), m_data.end(), [](const Ip& first, const Ip& second) {
-		return first.u32 > second.u32; // sort backwards
+	sort(m_data.begin(), m_data.end(), [](const Ip& first, const Ip& second) -> bool {
+		if (first.bytes[0] != second.bytes[0])
+			return first.bytes[0] > second.bytes[0];
+		if (first.bytes[1] != second.bytes[1])
+			return first.bytes[1] > second.bytes[1];
+		if (first.bytes[2] != second.bytes[2])
+			return first.bytes[2] > second.bytes[2];
+		return first.bytes[3] > second.bytes[3];
+// 		return std::tie(first.bytes[0], first.bytes[1], first.bytes[2], first.bytes[3]) >
+// 			std::tie(second.bytes[0], second.bytes[1], second.bytes[2], second.bytes[3]);
 	});
 }
 

@@ -8,8 +8,8 @@ Ip::Ip(const string& from) {
 }
 
 string Ip::to_string() const {
-	return std::to_string(bytes.b1) + "." + std::to_string(bytes.b2) + "." +
-		std::to_string(bytes.b3) + "." + std::to_string(bytes.b4);
+	return std::to_string(bytes[0]) + "." + std::to_string(bytes[1]) + "." +
+		std::to_string(bytes[2]) + "." + std::to_string(bytes[3]);
 }
 
 ostream& operator<<(ostream& os, const Ip& ip)
@@ -23,11 +23,11 @@ void Ip::from_string(const string& from) {
 	char dot;
 	int tmp;
 	ss >> tmp >> dot;
-	bytes.b1 = static_cast<uint8_t>( tmp );
+	bytes[0] = static_cast<uint8_t>( tmp );
 	ss >> tmp >> dot;
-	bytes.b2 = static_cast<uint8_t>( tmp );
+	bytes[1] = static_cast<uint8_t>( tmp );
 	ss >> tmp >> dot;
-	bytes.b3 = static_cast<uint8_t>( tmp );
+	bytes[2] = static_cast<uint8_t>( tmp );
 	ss >> tmp;
-	bytes.b4 = static_cast<uint8_t>( tmp );
+	bytes[3] = static_cast<uint8_t>( tmp );
 }

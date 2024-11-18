@@ -9,10 +9,10 @@ int main()
 		filter.doInput(std::cin);
 		filter.doSort();
 		filter.doFullOutput(std::cout);
-		filter.doFilteredOutput(std::cout, [](const Ip& ip) { return ip.bytes.b1 == 1; });
-		filter.doFilteredOutput(std::cout, [](const Ip& ip) { return ip.bytes.b1 == 46 && ip.bytes.b2 == 70; });
+		filter.doFilteredOutput(std::cout, [](const Ip& ip) { return ip.bytes[0] == 1; });
+		filter.doFilteredOutput(std::cout, [](const Ip& ip) { return ip.bytes[0] == 46 && ip.bytes[1] == 70; });
 		filter.doFilteredOutput(std::cout, [](const Ip& ip) {
-			return ip.bytes.b1 == 46 || ip.bytes.b2 == 46 || ip.bytes.b3 == 46 || ip.bytes.b4 == 46;
+			return ip.bytes[0] == 46 || ip.bytes[1] == 46 || ip.bytes[2] == 46 || ip.bytes[3] == 46;
 		});
 	}
 	catch (std::exception& e) {
